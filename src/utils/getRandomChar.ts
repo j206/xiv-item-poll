@@ -1,9 +1,10 @@
+// TODO: figure out where ulti weapons and relic weapons are
 const MAX_CHAR_ID = 6015386;
 
 export const getRandomWeapon: (notThisOne?: number) => number = (
   notThisOne
 ) => {
-  const weaponNumber = Math.floor(Math.random() * MAX_CHAR_ID - 1) + 1;
+  const weaponNumber = Math.floor(Math.random() * MAX_CHAR_ID) + 1;
 
   if (weaponNumber !== notThisOne) return weaponNumber;
   return getRandomWeapon(notThisOne);
