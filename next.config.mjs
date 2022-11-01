@@ -13,5 +13,15 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'xivapi.com',
+        port: '',
+        pathname: '/i/**',
+      },
+    ],
+  },
 };
 export default config;

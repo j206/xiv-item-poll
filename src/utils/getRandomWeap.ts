@@ -22,8 +22,17 @@ export const getRandomWeapon: (antiDupe?: number) => number = (antiDupe) => {
 };
 
 export const getOptionsForVote = () => {
-  const firstId = getRandomWeapon();
-  const secondId = getRandomWeapon(firstId);
+  const firstId: number = getRandomWeapon();
+  const secondId: number = getRandomWeapon(firstId);
 
   return [firstId, secondId];
 };
+
+// UCoB
+// 20959 - 20974 (16)
+// UWU
+// 22868 - 22883 (16)
+// TEA
+// 28289 - 28306 (18)
+// DSR
+// 36943 - 36962 (20)
