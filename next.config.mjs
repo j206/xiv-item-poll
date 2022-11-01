@@ -18,8 +18,6 @@ const config = {
       {
         protocol: 'http',
         hostname: 'xivapi.com',
-        port: '',
-        pathname: '/i/**',
       },
     ],
   },

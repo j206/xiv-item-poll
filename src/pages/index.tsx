@@ -24,7 +24,7 @@ const Home: NextPage = () => {
       </div>
       <div className="p-2" />
       <div className="flex max-w-2xl items-center justify-between rounded border p-8">
-        <div className="h-80 w-80">
+        <div className="h-16 w-16">
           <Image
             src={`http://xivapi.com${firstWeapon.data.icon}`}
             alt="Icon of first Ultimate Weapon"
@@ -33,7 +33,7 @@ const Home: NextPage = () => {
           />
         </div>
         <div className="p-8">Vs.</div>
-        <div className="h-80 w-80">
+        <div className="h-16 w-16">
           <Image
             src={`http://xivapi.com${secondWeapon.data.icon}`}
             alt="Icon of second Ultimate Weapon"
