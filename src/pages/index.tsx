@@ -7,6 +7,10 @@ import { trpc } from "../utils/trpc";
 const Home: NextPage = () => {
   const [first, second] = React.useMemo(() => getOptionsForVote(), []);
 
+  // TODO: probably bad
+  if (!first || !second) {
+    return <div>Error retrieving weapon data!</div>
+  }
   const firstWeapon = trpc.getWeaponById.useQuery({ id: first });
   const secondWeapon = trpc.getWeaponById.useQuery({ id: second });
   if (!firstWeapon.data || !secondWeapon.data) {
@@ -20,19 +24,19 @@ const Home: NextPage = () => {
       </div>
       <div className="p-2" />
       <div className="flex max-w-2xl items-center justify-between rounded border p-8">
-        <div className="h-16 w-16">
+        <div className="h-80 w-80">
           <Image
             src={`http://xivapi.com${firstWeapon.data.icon}`}
-            alt="Icon of Ultimate Weapon"
+            alt="Icon of first Ultimate Weapon"
             width={80}
             height={80}
           />
         </div>
         <div className="p-8">Vs.</div>
-        <div className="h-16 w-16">
+        <div className="h-80 w-80">
           <Image
             src={`http://xivapi.com${secondWeapon.data.icon}`}
-            alt="Icon of Ultimate Weapon"
+            alt="Icon of second Ultimate Weapon"
             width={80}
             height={80}
           />

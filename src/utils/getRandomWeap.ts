@@ -22,8 +22,8 @@ export const getRandomWeapon: (antiDupe?: number) => number = (antiDupe) => {
 };
 
 export const getOptionsForVote = () => {
-  const firstId: number = getRandomWeapon();
-  const secondId: number = getRandomWeapon(firstId);
+  const firstId = getRandomWeapon();
+  const secondId = getRandomWeapon(firstId);
 
   return [firstId, secondId];
 };
