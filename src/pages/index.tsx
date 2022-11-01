@@ -1,6 +1,6 @@
 import { type NextPage } from "next";
 import React from "react";
-import { getOptionsForVote } from "../utils/getRandomChar";
+import { getOptionsForVote } from "../utils/getRandomWeap";
 import { trpc } from "../utils/trpc";
 
 const Home: NextPage = () => {
