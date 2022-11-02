@@ -7,6 +7,7 @@ export const appRouter = router({
     .input(z.object({ id: z.number() }))
     // query
     .query(async ({ input }) => {
+      console.log("API call");
       const selectedWeapon = await fetch(
         `https://xivapi.com/item/${input.id}?columns=ID,Name,IconHD,ClassJobCategory.Name`,
         {
@@ -18,6 +19,7 @@ export const appRouter = router({
         name: selectedWeapon.Name,
         id: selectedWeapon.ID,
         icon: selectedWeapon.IconHD,
+        job: selectedWeapon.ClassJobCategory.Name
       };
     }),
 });

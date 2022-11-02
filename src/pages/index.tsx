@@ -1,15 +1,17 @@
 import { type NextPage } from "next";
 import Image from "next/image";
-import React from "react";
+import { useState } from "react";
 import { getOptionsForVote } from "../utils/getRandomWeap";
 import { trpc } from "../utils/trpc";
 
 const Home: NextPage = () => {
-  const [first, second] = React.useMemo(() => getOptionsForVote(), []);
+  // const [first, second] = useMemo(() => getOptionsForVote(), []);
+  const [ids, updateIds] = useState(getOptionsForVote());
+  const [first, second] = ids;
 
   // TODO: probably bad
   if (!first || !second) {
-    return <div>Error retrieving weapon data!</div>
+    return null;
   }
   const firstWeapon = trpc.getWeaponById.useQuery({ id: first });
   const secondWeapon = trpc.getWeaponById.useQuery({ id: second });
@@ -24,22 +26,27 @@ const Home: NextPage = () => {
       </div>
       <div className="p-2" />
       <div className="flex max-w-2xl items-center justify-between rounded border p-8">
-        <div className="h-16 w-16">
-          <Image
+        <div className="flex h-72 w-72 flex-col">
+          <img
             src={`http://xivapi.com${firstWeapon.data.icon}`}
+            className="w-full"
             alt="Icon of first Ultimate Weapon"
-            width={80}
-            height={80}
           />
+          <div className="text-center">
+            <div className="font-bold">{firstWeapon.data.name}</div>
+            <div className="text-xs">{firstWeapon.data.job}</div>
+          </div>
         </div>
         <div className="p-8">Vs.</div>
-        <div className="h-16 w-16">
-          <Image
+        <div className="flex h-72 w-72 flex-col">
+          <img
             src={`http://xivapi.com${secondWeapon.data.icon}`}
             alt="Icon of second Ultimate Weapon"
-            width={80}
-            height={80}
           />
+          <div className="text-center">
+            <div className="font-bold">{secondWeapon.data.name}</div>
+            <div className="text-xs">{secondWeapon.data.job}</div>
+          </div>
         </div>
       </div>
     </div>
