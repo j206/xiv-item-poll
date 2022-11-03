@@ -50,7 +50,6 @@ const Home: NextPage = () => {
           />
           <div className="font-bold object-scale-down">{firstWeapon.data.name}</div>
           <div className="text-xs">{firstWeapon.data.job}</div>
-          {/* <button className={btn}>Button</button> */}
         </div>
         <div className="p-8 text-2xl font-extrabold">Vs.</div>
         <div className="h-100 flex w-80 flex-col items-center">
@@ -62,7 +61,6 @@ const Home: NextPage = () => {
           />
           <div className="font-bold">{secondWeapon.data.name}</div>
           <div className="text-xs">{secondWeapon.data.job}</div>
-          {/* <button className={btn}>Button</button> */}
         </div>
       </div>
     </div>
