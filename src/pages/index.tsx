@@ -26,6 +26,7 @@ const Home: NextPage = () => {
     );
   }
 
+  // https://xiv-item-poll-jrtryg6qe-j206.vercel.app/api/trpc/getWeaponById?batch=1&input=%7B%220%22%3A%7B%22json%22%3A%7B%22id%22%3A36948%7D%7D%7D
   const voteForWeapon = (selected: number) => {
     // TODO: mutation to persist changes
     // problem 1: persisting of votes
