@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { publicProcedure, router } from "../trpc";
 import { env } from "../../../env/server.mjs";
+import { prisma } from "../../../server/db/client"
 
 export const appRouter = router({
   getWeaponById: publicProcedure
@@ -20,8 +21,20 @@ export const appRouter = router({
         name: selectedWeapon.Name,
         id: selectedWeapon.ID,
         icon: selectedWeapon.IconHD,
-        job: selectedWeapon.ClassJobCategory.Name
+        job: selectedWeapon.ClassJobCategory.Name,
       };
+    }),
+  castVote: publicProcedure
+    .input(
+      z.object({
+        votedFor: z.number(),
+        votedAgainst: z.number(),
+      })
+    )
+    .mutation(async ({input}) => {
+      // TODO: Prisma import shenanigans
+      const voteInDb = await prisma
+      return { success: true };
     }),
 });
 
