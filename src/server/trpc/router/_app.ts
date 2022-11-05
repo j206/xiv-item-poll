@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { publicProcedure, router } from "../trpc";
 import { env } from "../../../env/server.mjs";
-import { prisma } from "../../../server/db/client"
+import { prisma } from "../../../server/db/client";
 
 export const appRouter = router({
   getWeaponById: publicProcedure
@@ -31,10 +31,14 @@ export const appRouter = router({
         votedAgainst: z.number(),
       })
     )
-    .mutation(async ({input}) => {
+    .mutation(async ({ input }) => {
       // TODO: Prisma import shenanigans
-      const voteInDb = await prisma
-      return { success: true };
+      const voteInDb = await prisma.vote.create({
+        data: {
+          ...input,
+        },
+      });
+      return { success: true, vote: voteInDb };
     }),
 });
 
