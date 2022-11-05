@@ -2,6 +2,7 @@ import { type NextPage } from "next";
 import { useState } from "react";
 import { getOptionsForVote } from "../utils/getRandomWeap";
 import { trpc } from "../utils/trpc";
+import Image from "next/image"
 
 const Home: NextPage = () => {
   const [ids, updateIds] = useState(getOptionsForVote());
@@ -44,9 +45,11 @@ const Home: NextPage = () => {
       <div className="p-2" />
       <div className="flex max-w-3xl items-center justify-between rounded border p-8">
         <div className="h-100 flex w-80 flex-col items-center">
-          <img
+          <Image
             src={`http://xivapi.com${firstWeapon.data.icon}`}
-            className="cursor-pointer object-fill"
+            className="cursor-pointer"
+            width={80}
+            height={80}
             onClick={() => voteForWeapon(first)}
             alt="Icon of first Ultimate Weapon"
           />
@@ -57,9 +60,11 @@ const Home: NextPage = () => {
         </div>
         <div className="p-8 text-2xl font-extrabold">Vs.</div>
         <div className="h-100 flex w-80 flex-col items-center">
-          <img
+          <Image
             src={`http://xivapi.com${secondWeapon.data.icon}`}
-            className="cursor-pointer object-fill"
+            className="cursor-pointer"
+            width={80}
+            height={80}
             onClick={() => voteForWeapon(second)}
             alt="Icon of second Ultimate Weapon"
           />
