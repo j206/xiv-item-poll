@@ -2,7 +2,7 @@ import { type NextPage } from "next";
 import { useState } from "react";
 import { getOptionsForVote } from "../utils/getRandomWeap";
 import { trpc } from "../utils/trpc";
-import Image from "next/image"
+import Image from "next/image";
 
 const Home: NextPage = () => {
   const [ids, updateIds] = useState(getOptionsForVote());
@@ -10,7 +10,11 @@ const Home: NextPage = () => {
 
   // TODO: probably bad loading condition
   if (!first || !second) {
-    return null;
+    return (
+      <div className="flex h-screen">
+        <div className="m-auto">Progging...</div>
+      </div>
+    );
   }
 
   const firstWeapon = trpc.getWeaponById.useQuery({ id: first });
@@ -47,7 +51,7 @@ const Home: NextPage = () => {
         <div className="h-100 flex w-80 flex-col items-center">
           <Image
             src={`http://xivapi.com${firstWeapon.data.icon}`}
-            className="cursor-pointer"
+            className="cursor-pointer pb-2"
             width={80}
             height={80}
             onClick={() => voteForWeapon(first)}
@@ -62,7 +66,7 @@ const Home: NextPage = () => {
         <div className="h-100 flex w-80 flex-col items-center">
           <Image
             src={`http://xivapi.com${secondWeapon.data.icon}`}
-            className="cursor-pointer"
+            className="cursor-pointer pb-2"
             width={80}
             height={80}
             onClick={() => voteForWeapon(second)}

@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["referentialIntegrity"]
 }
 
@@ -17,6 +17,17 @@ model Vote {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
 
-  votedFor     Int
-  votedAgainst Int
+  votedForId     Int
+  votedFor Weapon @relation(name: "votesFor", fields: [votedForId], references: [id])
+  votedAgainstId  Int
+  votedAgainst Weapon @relation(name: "votesAgainst", fields: [votedAgainstId], references: [id])
+}
+
+model Weapon {
+  id   Int @id
+  name String
+  iconUrl String
+
+  VoteFor Vote[] @relation("votesFor")
+  VoteAgainst Vote[] @relation("votesAgainst")
 }
