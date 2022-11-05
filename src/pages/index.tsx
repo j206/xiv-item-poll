@@ -1,24 +1,22 @@
 import { type NextPage } from "next";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getOptionsForVote } from "../utils/getRandomWeap";
 import { trpc } from "../utils/trpc";
-
-const btn =
-  "bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow";
 
 const Home: NextPage = () => {
   const [ids, updateIds] = useState(getOptionsForVote());
   const [first, second] = ids;
 
-  // TODO: probably bad loading display
+  // TODO: probably bad loading condition
   if (!first || !second) {
     return null;
   }
 
   const firstWeapon = trpc.getWeaponById.useQuery({ id: first });
   const secondWeapon = trpc.getWeaponById.useQuery({ id: second });
+  const voteMutation = trpc.castVote.useMutation();
 
-  // TODO: also bad loading display
+  // TODO: also bad loading condition
   if (!firstWeapon.data || !secondWeapon.data) {
     return (
       <div className="flex h-screen">
@@ -28,9 +26,13 @@ const Home: NextPage = () => {
   }
 
   const voteForWeapon = (selected: number) => {
-    // TODO: mutation to persist changes
-    // problem 1: persisting of votes
-    // problem 2: data fetched from API
+    // TODO: data fetched from API
+    if (selected === first) {
+      voteMutation.mutate({ votedFor: first, votedAgainst: second });
+    } else {
+      voteMutation.mutate({ votedFor: second, votedAgainst: first });
+    }
+
     updateIds(getOptionsForVote());
   };
 
@@ -45,7 +47,7 @@ const Home: NextPage = () => {
           <img
             src={`http://xivapi.com${firstWeapon.data.icon}`}
             className="cursor-pointer object-fill"
-            onClick={() => voteForWeapon(second)}
+            onClick={() => voteForWeapon(first)}
             alt="Icon of first Ultimate Weapon"
           />
           <div className="object-scale-down font-bold">
