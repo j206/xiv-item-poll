@@ -18,16 +18,17 @@ model Vote {
   createdAt DateTime @default(now())
 
   votedForId     Int
-  votedFor Weapon @relation(name: "votesFor", fields: [votedForId], references: [id])
-  votedAgainstId  Int
-  votedAgainst Weapon @relation(name: "votesAgainst", fields: [votedAgainstId], references: [id])
+  votedFor       Weapon @relation(name: "votesFor", fields: [votedForId], references: [id])
+  votedAgainstId Int
+  votedAgainst   Weapon @relation(name: "votesAgainst", fields: [votedAgainstId], references: [id])
 }
 
 model Weapon {
-  id   Int @id
-  name String
+  id      Int    @id
+  name    String
+  job     String
   iconUrl String
 
-  VoteFor Vote[] @relation("votesFor")
+  VoteFor     Vote[] @relation("votesFor")
   VoteAgainst Vote[] @relation("votesAgainst")
 }

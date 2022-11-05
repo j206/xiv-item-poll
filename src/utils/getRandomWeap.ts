@@ -1,12 +1,12 @@
 export const getRandomWeapon: (antiDupe?: number) => number = (antiDupe) => {
-  const allWeaponSets = [
+  const allWeaponSetIds = [
     [20959, 20974],
     [22868, 22883],
     [28289, 28306],
     [36943, 36962],
   ];
   const weaponSet =
-    allWeaponSets[Math.floor(Math.random() * allWeaponSets.length)];
+    allWeaponSetIds[Math.floor(Math.random() * allWeaponSetIds.length)];
 
   if (!weaponSet || !weaponSet[0] || !weaponSet[1]) {
     return 0;
