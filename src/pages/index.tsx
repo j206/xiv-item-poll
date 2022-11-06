@@ -11,13 +11,7 @@ const Home: NextPage = () => {
   const [first, second] = ids;
 
   // TODO: probably bad loading condition
-  if (!first || !second) {
-    return (
-      <div className="flex h-screen">
-        <div className="m-auto">Progging...</div>
-      </div>
-    );
-  }
+  if (!first || !second) return null;
 
   const firstWeapon = trpc.getWeaponById.useQuery(
     { id: first },
@@ -39,7 +33,12 @@ const Home: NextPage = () => {
   const voteMutation = trpc.castVote.useMutation();
 
   // TypeScript appeasement
-  if (!firstWeapon.data || !secondWeapon.data) return null;
+  if (!firstWeapon.data || !secondWeapon.data)
+    return (
+      <div className="flex h-screen">
+        <div className="m-auto">Progging...</div>
+      </div>
+    );
 
   const voteForWeapon = (selected: number) => {
     if (selected === first) {
