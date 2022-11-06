@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const getWeaponsInOrder = async () => {
   return await prisma.weapon.findMany({
-    orderBy: { VoteFor: { _count: "desc" } },
+    orderBy: [{ VoteFor: { _count: "desc" } }, { id: "asc" }],
     select: {
       id: true,
       name: true,
@@ -20,19 +20,29 @@ const getWeaponsInOrder = async () => {
   });
 };
 
+const generateCountPercent = (weapon: WeaponQueryResult[number]) => {
+  const {VoteFor, VoteAgainst} = weapon._count;
+  if (VoteFor + VoteAgainst ===0) return 0;
+  return (VoteFor / (VoteFor + VoteAgainst)) * 100;
+}
+
 type WeaponQueryResult = AsyncReturnType<typeof getWeaponsInOrder>;
+
 const WeaponListing: React.FC<{ weapon: WeaponQueryResult[number] }> = (
   props
 ) => {
   return (
-    <div className="flex items-center border-b p-2">
-      <Image
-        src={props.weapon.iconUrl}
-        width={64}
-        height={64}
-        alt="Icon of an Ultimate Weapon"
-      />
-      <div className="pl-2 capitalize">{props.weapon.name}</div>
+    <div className="flex border-b p-2 items-center justify-between">
+      <div className="flex items-center">
+        <Image
+          src={props.weapon.iconUrl}
+          width={64}
+          height={64}
+          alt="Icon of an Ultimate Weapon"
+        />
+        <div className="pl-2 font-bold capitalize">{props.weapon.name}</div>
+      </div>
+      <div className="pr-4">{generateCountPercent(props.weapon) + "%"}</div>
     </div>
   );
 };
@@ -42,9 +52,9 @@ const ResultsPage: React.FC<{
 }> = (props) => {
   return (
     <div className="flex flex-col items-center">
-      <h2 className="text-2xl p-4">Results</h2>
+      <h2 className="p-4 text-2xl">Results</h2>
       <div className="p-2" />
-      <div className="flex flex-col w-full max-w-2xl border">
+      <div className="flex w-full max-w-2xl flex-col border">
         {props.weapons.map((currentWeapon) => {
           return (
             <WeaponListing weapon={currentWeapon} key={currentWeapon.id} />
