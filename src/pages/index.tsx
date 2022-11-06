@@ -3,6 +3,7 @@ import { useState } from "react";
 import { getOptionsForVote } from "../utils/getRandomWeap";
 import { trpc } from "../utils/trpc";
 import Image from "next/image";
+import Link from "next/link";
 
 const Home: NextPage = () => {
   const [ids, updateIds] = useState(getOptionsForVote());
@@ -75,6 +76,9 @@ const Home: NextPage = () => {
           <div className="font-bold">{secondWeapon.data.name}</div>
           <div className="text-xs">{secondWeapon.data.job}</div>
         </div>
+      </div>
+      <div className="text-center text-xl">
+        <Link href="/results">Results</Link>
       </div>
     </div>
   );

@@ -2,10 +2,11 @@ import type { GetServerSideProps } from "next";
 import { prisma } from "../server/db/client";
 import type { AsyncReturnType } from "../utils/ts-infer-return";
 import Image from "next/image";
+import Link from "next/link";
 
 const getWeaponsInOrder = async () => {
   return await prisma.weapon.findMany({
-    orderBy: [{ VoteFor: { _count: "desc" } }, { id: "asc" }],
+    orderBy: [{ VoteFor: { _count: "desc" } }, {VoteAgainst: {_count: "asc"}}],
     select: {
       id: true,
       name: true,
@@ -21,10 +22,10 @@ const getWeaponsInOrder = async () => {
 };
 
 const generateCountPercent = (weapon: WeaponQueryResult[number]) => {
-  const {VoteFor, VoteAgainst} = weapon._count;
-  if (VoteFor + VoteAgainst ===0) return 0;
-  return (VoteFor / (VoteFor + VoteAgainst)) * 100;
-}
+  const { VoteFor, VoteAgainst } = weapon._count;
+  if (VoteFor + VoteAgainst === 0) return 0;
+  return Math.round((VoteFor / (VoteFor + VoteAgainst)) * 100);
+};
 
 type WeaponQueryResult = AsyncReturnType<typeof getWeaponsInOrder>;
 
@@ -32,7 +33,7 @@ const WeaponListing: React.FC<{ weapon: WeaponQueryResult[number] }> = (
   props
 ) => {
   return (
-    <div className="flex border-b p-2 items-center justify-between">
+    <div className="flex items-center justify-between border-b p-2">
       <div className="flex items-center">
         <Image
           src={props.weapon.iconUrl}
@@ -42,7 +43,13 @@ const WeaponListing: React.FC<{ weapon: WeaponQueryResult[number] }> = (
         />
         <div className="pl-2 font-bold capitalize">{props.weapon.name}</div>
       </div>
-      <div className="pr-4">{generateCountPercent(props.weapon) + "%"}</div>
+      {/* <div className="pr-4"></div> */}
+      <div className="pr-4">
+        W: {props.weapon._count.VoteFor}, L: {props.weapon._count.VoteAgainst}
+        <div className="text-xs">
+          ({generateCountPercent(props.weapon) + "%"})
+        </div>
+      </div>
     </div>
   );
 };
@@ -52,8 +59,12 @@ const ResultsPage: React.FC<{
 }> = (props) => {
   return (
     <div className="flex flex-col items-center">
-      <h2 className="p-4 text-2xl">Results</h2>
-      <div className="p-2" />
+      <div className="p-4 text-center">
+        <h2 className="text-2xl">Results</h2>
+        <Link href="/">
+          <h6 className="text-xs">Back</h6>
+        </Link>
+      </div>
       <div className="flex w-full max-w-2xl flex-col border">
         {props.weapons.map((currentWeapon) => {
           return (
