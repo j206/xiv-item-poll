@@ -1,12 +1,16 @@
 import type { GetServerSideProps } from "next";
 import { prisma } from "../server/db/client";
 import type { AsyncReturnType } from "../utils/ts-infer-return";
+
 import Image from "next/image";
 import Link from "next/link";
 
 const getWeaponsInOrder = async () => {
   return await prisma.weapon.findMany({
-    orderBy: [{ VoteFor: { _count: "desc" } }, {VoteAgainst: {_count: "asc"}}],
+    orderBy: [
+      { VoteFor: { _count: "desc" } },
+      { VoteAgainst: { _count: "asc" } },
+    ],
     select: {
       id: true,
       name: true,
@@ -24,7 +28,7 @@ const getWeaponsInOrder = async () => {
 const generateCountPercent = (weapon: WeaponQueryResult[number]) => {
   const { VoteFor, VoteAgainst } = weapon._count;
   if (VoteFor + VoteAgainst === 0) return 0;
-  return Math.round((VoteFor / (VoteFor + VoteAgainst)) * 100);
+  return (VoteFor / (VoteFor + VoteAgainst)) * 100;
 };
 
 type WeaponQueryResult = AsyncReturnType<typeof getWeaponsInOrder>;
@@ -41,14 +45,10 @@ const WeaponListing: React.FC<{ weapon: WeaponQueryResult[number] }> = (
           height={64}
           alt="Icon of an Ultimate Weapon"
         />
-        <div className="pl-2 font-bold capitalize">{props.weapon.name}</div>
+        <div className="pl-2 font-bold">{props.weapon.name}</div>
       </div>
-      {/* <div className="pr-4"></div> */}
       <div className="pr-4">
-        W: {props.weapon._count.VoteFor}, L: {props.weapon._count.VoteAgainst}
-        <div className="text-xs">
-          ({generateCountPercent(props.weapon) + "%"})
-        </div>
+        {generateCountPercent(props.weapon).toFixed(2) + "%"}
       </div>
     </div>
   );
@@ -65,12 +65,19 @@ const ResultsPage: React.FC<{
           <h6 className="text-xs">Back</h6>
         </Link>
       </div>
-      <div className="flex w-full max-w-2xl flex-col border">
-        {props.weapons.map((currentWeapon) => {
-          return (
-            <WeaponListing weapon={currentWeapon} key={currentWeapon.id} />
-          );
-        })}
+      <div className="flex w-full max-w-xl flex-col border">
+        {props.weapons
+          .sort((a, b) => {
+            const diff = generateCountPercent(b) - generateCountPercent(a);
+            if (diff === 0) return b._count.VoteFor - a._count.VoteFor;
+            return diff;
+          })
+
+          .map((currentWeapon) => {
+            return (
+              <WeaponListing weapon={currentWeapon} key={currentWeapon.id} />
+            );
+          })}
       </div>
     </div>
   );

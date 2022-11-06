@@ -2,6 +2,7 @@ import { type NextPage } from "next";
 import { useState } from "react";
 import { getOptionsForVote } from "../utils/getRandomWeap";
 import { trpc } from "../utils/trpc";
+
 import Image from "next/image";
 import Link from "next/link";
 
