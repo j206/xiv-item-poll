@@ -1,10 +1,14 @@
-# FFXIV Ultimate Weapon Coolness Poll
+# **FFXIV Ultimate Weapon Coolness Poll**
 go with your gut  
 (spoiler: the TEA ones are best)
 
 # TODO
-- [ ] Display Ultimate the item drops from
-- [ ] Link/Display photo of on-character item
+- [ ] Improve `useQuery` to get both weapons in one go
+- [ ] Link/Display screenshot of on-character item
 - [X] Cache images
 - [ ] Implement `WeaponListing` on front page; animate it
-- [ ] Change job listings to job icons? Low priority
+- [ ] Improve loading state -> Spinners
+- [ ] Improve loading state -> Suspense
+# Low Priority
+- [ ] Change job listings to job icons? *Low priority*
+- [ ] Display Ultimate the item drops from
