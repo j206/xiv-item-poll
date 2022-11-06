@@ -13,14 +13,15 @@ const Home: NextPage = () => {
   // TODO: probably bad loading condition
   if (!first || !second) return null;
 
-  const firstWeapon = trpc.getWeaponById.useQuery(
-    { id: first },
-    {
-      refetchInterval: false,
-      refetchOnReconnect: false,
-      refetchOnWindowFocus: false,
-    }
-  );
+  // const firstWeapon = trpc.getWeaponById.useQuery(
+  //   { id: first },
+  //   {
+  //     refetchInterval: false,
+  //     refetchOnReconnect: false,
+  //     refetchOnWindowFocus: false,
+  //   }
+  // );
+  const firstWeapon = false;
   const secondWeapon = trpc.getWeaponById.useQuery(
     { id: second },
     {
@@ -35,8 +36,10 @@ const Home: NextPage = () => {
   // TypeScript appeasement
   if (!firstWeapon.data || !secondWeapon.data)
     return (
-      <div className="flex h-screen">
-        <div className="m-auto">Progging...</div>
+      <div className="relative flex h-screen w-screen flex-col items-center justify-center">
+        <div className="font-bold">Progging...</div>
+        <div className="p-1" />
+        <img src="/puff.svg" alt="Loading animation" />
       </div>
     );
 
