@@ -9,19 +9,12 @@ export const appRouter = router({
     .input(z.object({ id: z.number() }))
     // query
     .query(async ({ input }) => {
-      const selectedWeapon = await fetch(
-        `https://xivapi.com/item/${input.id}?columns=ID,Name,IconHD,ClassJobCategory.Name&?private_key=${env.XIVAPI_PRIVATE_KEY}`,
-        {
-          mode: "cors",
-        }
-      ).then((response) => response.json());
+      const selectedWeapon = await prisma.weapon.findFirst({
+        where: { id: input.id },
+      });
 
-      return {
-        name: selectedWeapon.Name,
-        id: selectedWeapon.ID,
-        icon: selectedWeapon.IconHD,
-        job: selectedWeapon.ClassJobCategory.Name,
-      };
+      if (!selectedWeapon) throw new Error("Weapon doesn't exist!");
+      return selectedWeapon;
     }),
   castVote: publicProcedure
     .input(
@@ -33,7 +26,8 @@ export const appRouter = router({
     .mutation(async ({ input }) => {
       const voteInDb = await prisma.vote.create({
         data: {
-          ...input,
+          votedForId: input.votedFor,
+          votedAgainstId: input.votedAgainst,
         },
       });
       return { success: true, vote: voteInDb };

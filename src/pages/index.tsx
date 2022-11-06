@@ -50,7 +50,7 @@ const Home: NextPage = () => {
       <div className="flex max-w-3xl items-center justify-between rounded border p-8">
         <div className="h-100 flex w-80 flex-col items-center">
           <Image
-            src={`http://xivapi.com${firstWeapon.data.icon}`}
+            src={firstWeapon.data.iconUrl}
             className="cursor-pointer pb-2"
             width={80}
             height={80}
@@ -65,7 +65,7 @@ const Home: NextPage = () => {
         <div className="p-8 text-2xl font-extrabold">Vs.</div>
         <div className="h-100 flex w-80 flex-col items-center">
           <Image
-            src={`http://xivapi.com${secondWeapon.data.icon}`}
+            src={secondWeapon.data.iconUrl}
             className="cursor-pointer pb-2"
             width={80}
             height={80}
