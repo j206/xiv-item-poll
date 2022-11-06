@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { publicProcedure, router } from "../trpc";
-import { env } from "../../../env/server.mjs";
 import { prisma } from "../../../server/db/client";
 
 export const appRouter = router({
