@@ -18,21 +18,29 @@ const Home: NextPage = () => {
     );
   }
 
-  const firstWeapon = trpc.getWeaponById.useQuery({ id: first });
-  const secondWeapon = trpc.getWeaponById.useQuery({ id: second });
+  const firstWeapon = trpc.getWeaponById.useQuery(
+    { id: first },
+    {
+      refetchInterval: false,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
+    }
+  );
+  const secondWeapon = trpc.getWeaponById.useQuery(
+    { id: second },
+    {
+      refetchInterval: false,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
+    }
+  );
+
   const voteMutation = trpc.castVote.useMutation();
 
-  // TODO: also bad loading condition
-  if (!firstWeapon.data || !secondWeapon.data) {
-    return (
-      <div className="flex h-screen">
-        <div className="m-auto">Progging...</div>
-      </div>
-    );
-  }
+  // TypeScript appeasement
+  if (!firstWeapon.data || !secondWeapon.data) return null;
 
   const voteForWeapon = (selected: number) => {
-    // TODO: data fetched from API
     if (selected === first) {
       voteMutation.mutate({ votedFor: first, votedAgainst: second });
     } else {
