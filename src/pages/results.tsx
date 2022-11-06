@@ -60,9 +60,9 @@ const ResultsPage: React.FC<{
   return (
     <div className="flex flex-col items-center">
       <div className="p-4 text-center">
-        <h2 className="text-2xl">Results</h2>
+        <h2 className="text-2xl font-bold">Results</h2>
         <Link href="/">
-          <h6 className="text-xs">Back</h6>
+          <h6 className="text-xs text-slate-400">Back</h6>
         </Link>
       </div>
       <div className="flex w-full max-w-xl flex-col border">
