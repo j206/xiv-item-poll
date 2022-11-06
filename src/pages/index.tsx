@@ -13,15 +13,14 @@ const Home: NextPage = () => {
   // TODO: probably bad loading condition
   if (!first || !second) return null;
 
-  // const firstWeapon = trpc.getWeaponById.useQuery(
-  //   { id: first },
-  //   {
-  //     refetchInterval: false,
-  //     refetchOnReconnect: false,
-  //     refetchOnWindowFocus: false,
-  //   }
-  // );
-  const firstWeapon = false;
+  const firstWeapon = trpc.getWeaponById.useQuery(
+    { id: first },
+    {
+      refetchInterval: false,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
+    }
+  );
   const secondWeapon = trpc.getWeaponById.useQuery(
     { id: second },
     {
