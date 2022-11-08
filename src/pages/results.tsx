@@ -79,13 +79,15 @@ const ResultsPage: React.FC<{
             );
           })}
       </div>
+      <div className="p-4" />
     </div>
   );
 };
 
 export default ResultsPage;
 
+// revalidate WAS 20
 export const getStaticProps: GetServerSideProps = async () => {
   const weaponOrdered = await getWeaponsInOrder();
-  return { props: { weapons: weaponOrdered }, revalidate: 20 };
+  return { props: { weapons: weaponOrdered }};
 };
