@@ -55,7 +55,7 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className="flex h-screen w-screen flex-col items-center max-lg:pt-8 lg:justify-center">
+    <div className="flex h-screen w-screen flex-col items-center max-lg:overflow-hidden max-lg:pt-8 lg:justify-center">
       {showModal ? <ImageModal toggleModal={setShowModal} /> : null}
       <div className="text-center text-2xl font-bold">
         Which Ultimate Weapon is cooler?
