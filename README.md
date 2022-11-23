@@ -7,7 +7,7 @@ go with your gut
 - [ ] Link/Display screenshot of on-character item
 - [X] Cache images
 - [ ] Implement `WeaponListing` on front page; animate it
-- [ ] Improve loading state -> Spinners
+- [X] Improve loading state -> Spinners
 - [ ] Improve loading state -> Suspense
 # Low Priority
 - [ ] Change job listings to job icons? *Low priority*
