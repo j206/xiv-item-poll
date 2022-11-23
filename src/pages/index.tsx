@@ -53,7 +53,7 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className="flex h-screen w-screen flex-col items-center justify-center">
+    <div className="flex h-screen w-screen flex-col items-center justify-center overflow-x-hidden">
       <div className="text-center text-2xl">
         Which Ultimate Weapon is cooler?
       </div>
