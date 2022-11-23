@@ -58,11 +58,11 @@ const Home: NextPage = () => {
         Which Ultimate Weapon is cooler?
       </div>
       <div className="p-2" />
-      <div className="flex max-w-3xl items-center justify-between rounded border p-8">
+      <div className="flex max-w-3xl items-center justify-between rounded border p-8 max-lg:flex-col max-sm:max-w-xs">
         <div className="h-100 flex w-80 flex-col items-center">
           <Image
             src={firstWeapon.data.iconUrl}
-            className="cursor-pointer pb-2"
+            className="cursor-pointer pb-2 sm:shrink-0 md:shrink-0"
             width={80}
             height={80}
             onClick={() => voteForWeapon(first)}
@@ -77,7 +77,7 @@ const Home: NextPage = () => {
         <div className="h-100 flex w-80 flex-col items-center">
           <Image
             src={secondWeapon.data.iconUrl}
-            className="cursor-pointer pb-2"
+            className="cursor-pointer pb-2 sm:shrink-0 md:shrink-0"
             width={80}
             height={80}
             onClick={() => voteForWeapon(second)}
