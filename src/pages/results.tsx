@@ -89,5 +89,5 @@ export default ResultsPage;
 // revalidate WAS 20
 export const getStaticProps: GetServerSideProps = async () => {
   const weaponOrdered = await getWeaponsInOrder();
-  return { props: { weapons: weaponOrdered }};
+  return { props: { weapons: weaponOrdered}, revalidate: 5};
 };
