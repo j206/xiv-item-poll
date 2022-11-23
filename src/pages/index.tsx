@@ -1,5 +1,5 @@
 import { type NextPage } from "next";
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import { getOptionsForVote } from "../utils/getRandomWeap";
 import { trpc } from "../utils/trpc";
 
@@ -53,7 +53,7 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className="flex h-screen w-screen flex-col items-center justify-center max-md:overflow-x-hidden">
+    <div className="flex h-screen w-screen flex-col items-center max-lg:pt-8 lg:justify-center">
       <div className="text-center text-2xl font-bold">
         Which Ultimate Weapon is cooler?
       </div>
