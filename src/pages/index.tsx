@@ -1,5 +1,5 @@
 import { type NextPage } from "next";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { getOptionsForVote } from "../utils/getRandomWeap";
 import { trpc } from "../utils/trpc";
 
@@ -53,8 +53,8 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className="flex h-screen w-screen flex-col items-center justify-center overflow-y-hidden">
-      <div className="text-center text-2xl">
+    <div className="flex h-screen w-screen flex-col items-center justify-center max-md:overflow-x-hidden">
+      <div className="text-center text-2xl font-bold">
         Which Ultimate Weapon is cooler?
       </div>
       <div className="p-2" />
@@ -68,10 +68,9 @@ const Home: NextPage = () => {
             onClick={() => voteForWeapon(first)}
             alt="Icon of first Ultimate Weapon"
           />
-          <div className="object-scale-down font-bold">
-            {firstWeapon.data.name}
-          </div>
+          <div className="font-bold">{firstWeapon.data.name}</div>
           <div className="text-xs">{firstWeapon.data.job}</div>
+          <UltimateTitle id={firstWeapon.data.id} />
         </div>
         <div className="p-8 text-2xl font-extrabold">Vs.</div>
         <div className="h-100 flex w-80 flex-col items-center">
@@ -85,6 +84,7 @@ const Home: NextPage = () => {
           />
           <div className="font-bold">{secondWeapon.data.name}</div>
           <div className="text-xs">{secondWeapon.data.job}</div>
+          <UltimateTitle id={secondWeapon.data.id} />
         </div>
       </div>
       <div className="text-center text-xl">
@@ -92,6 +92,25 @@ const Home: NextPage = () => {
       </div>
     </div>
   );
+};
+
+const UltimateTitle = (weapon: { id: number }) => {
+  let textFormat;
+  let ultimateTitle;
+  if (weapon.id >= 20959 && weapon.id <= 20974) {
+    textFormat = "text-xs text-yellow-500";
+    ultimateTitle = `The Unending Coil of Bahamut`;
+  } else if (weapon.id >= 22868 && weapon.id <= 22883) {
+    textFormat = "text-xs text-blue-400";
+    ultimateTitle = `The Weapon's Refrain`;
+  } else if (weapon.id >= 28289 && weapon.id <= 28306) {
+    textFormat = "text-xs text-yellow-100";
+    ultimateTitle = `The Epic of Alexander`;
+  } else if (weapon.id >= 36943 && weapon.id <= 36962) {
+    textFormat = "text-xs text-red-600";
+    ultimateTitle = `Dragonsong's Reprise`;
+  }
+  return <div className={textFormat}>{ultimateTitle}</div>;
 };
 
 export default Home;
