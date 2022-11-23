@@ -11,4 +11,4 @@ go with your gut
 - [ ] Improve loading state -> Suspense
 # Low Priority
 - [ ] Change job listings to job icons? *Low priority*
-- [ ] Display Ultimate the item drops from
+- [X] Display Ultimate the item drops from
