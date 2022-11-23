@@ -1,6 +1,9 @@
 # **FFXIV Ultimate Weapon Poll**
+Built using the T3 stack (TypeScript, Next.js, tRPC, Prisma, Tailwind). Utilizes [XIVAPI](https://xivapi.com), hosted on Vercel.
+
+# Usage
 go with your gut  
-(spoiler: the TEA ones are best)
+(spoiler: the TEA weapons will be the best)
 
 # TODO
 - [ ] Improve `useQuery` to get both weapons in one go

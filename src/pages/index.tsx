@@ -10,6 +10,8 @@ const Home: NextPage = () => {
   const [ids, updateIds] = useState(getOptionsForVote());
   const [first, second] = ids;
 
+  const [showModal, setShowModal] = useState(false);
+
   // TODO: probably bad loading condition
   if (!first || !second) return null;
 
@@ -54,6 +56,7 @@ const Home: NextPage = () => {
 
   return (
     <div className="flex h-screen w-screen flex-col items-center max-lg:pt-8 lg:justify-center">
+      {showModal ? <ImageModal toggleModal={setShowModal} /> : null}
       <div className="text-center text-2xl font-bold">
         Which Ultimate Weapon is cooler?
       </div>
@@ -68,7 +71,9 @@ const Home: NextPage = () => {
             onClick={() => voteForWeapon(first)}
             alt="Icon of first Ultimate Weapon"
           />
-          <div className="font-bold">{firstWeapon.data.name}</div>
+          <div className="font-bold" onClick={() => setShowModal(!showModal)}>
+            {firstWeapon.data.name}
+          </div>
           <div className="text-xs">{firstWeapon.data.job}</div>
           <UltimateTitle id={firstWeapon.data.id} />
         </div>
@@ -82,7 +87,9 @@ const Home: NextPage = () => {
             onClick={() => voteForWeapon(second)}
             alt="Icon of second Ultimate Weapon"
           />
-          <div className="font-bold">{secondWeapon.data.name}</div>
+          <div className="font-bold" onClick={() => setShowModal(!showModal)}>
+            {secondWeapon.data.name}
+          </div>
           <div className="text-xs">{secondWeapon.data.job}</div>
           <UltimateTitle id={secondWeapon.data.id} />
         </div>
@@ -111,6 +118,20 @@ const UltimateTitle = (weapon: { id: number }) => {
     ultimateTitle = `Dragonsong's Reprise`;
   }
   return <div className={textFormat}>{ultimateTitle}</div>;
+};
+
+const ImageModal = ({ toggleModal }: any) => {
+  return (
+    <div
+      onClick={() => toggleModal(false)}
+      className="modal fixed flex items-center justify-center"
+    >
+      <div className="overlay h-screen w-screen bg-black bg-opacity-80"></div>
+      <div className="content absolute top-2/4 text-9xl font-bold text-slate-300">
+        Placeholder Image
+      </div>
+    </div>
+  );
 };
 
 export default Home;
