@@ -1,4 +1,4 @@
-# **FFXIV Ultimate Weapon Coolness Poll**
+# **FFXIV Ultimate Weapon Poll**
 go with your gut  
 (spoiler: the TEA ones are best)
 
