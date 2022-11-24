@@ -12,6 +12,10 @@ const Home: NextPage = () => {
 
   const [showModal, setShowModal] = useState(false);
 
+  const prepareModal = () => {
+    return
+  };
+
   // TODO: probably bad loading condition
   if (!first || !second) return null;
 
@@ -55,49 +59,51 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className="flex h-screen w-screen flex-col items-center max-lg:overflow-hidden max-lg:pt-8 lg:justify-center">
+    <>
       {showModal ? <ImageModal toggleModal={setShowModal} /> : null}
-      <div className="text-center text-2xl font-bold">
-        Which Ultimate Weapon is cooler?
-      </div>
-      <div className="p-2" />
-      <div className="flex max-w-3xl items-center justify-between rounded border p-8 max-lg:flex-col max-sm:max-w-xs">
-        <div className="h-100 flex w-80 flex-col items-center">
-          <Image
-            src={firstWeapon.data.iconUrl}
-            className="cursor-pointer pb-2 sm:shrink-0 md:shrink-0"
-            width={80}
-            height={80}
-            onClick={() => voteForWeapon(first)}
-            alt="Icon of first Ultimate Weapon"
-          />
-          <div className="font-bold" onClick={() => setShowModal(!showModal)}>
-            {firstWeapon.data.name}
-          </div>
-          <div className="text-xs">{firstWeapon.data.job}</div>
-          <UltimateTitle id={firstWeapon.data.id} />
+      <div className="flex h-screen w-screen flex-col items-center max-lg:overflow-hidden max-lg:pt-8 lg:justify-center">
+        <div className="text-center text-2xl font-bold">
+          Which Ultimate Weapon is cooler?
         </div>
-        <div className="p-8 text-2xl font-extrabold">Vs.</div>
-        <div className="h-100 flex w-80 flex-col items-center">
-          <Image
-            src={secondWeapon.data.iconUrl}
-            className="cursor-pointer pb-2 sm:shrink-0 md:shrink-0"
-            width={80}
-            height={80}
-            onClick={() => voteForWeapon(second)}
-            alt="Icon of second Ultimate Weapon"
-          />
-          <div className="font-bold" onClick={() => setShowModal(!showModal)}>
-            {secondWeapon.data.name}
+        <div className="p-2" />
+        <div className="flex max-w-3xl items-center justify-between rounded border p-8 max-lg:flex-col max-sm:max-w-xs">
+          <div className="h-100 flex w-80 flex-col items-center">
+            <Image
+              src={firstWeapon.data.iconUrl}
+              className="cursor-pointer pb-2 sm:shrink-0 md:shrink-0"
+              width={80}
+              height={80}
+              onClick={() => voteForWeapon(first)}
+              alt="Icon of first Ultimate Weapon"
+            />
+            <div className="font-bold" onClick={() => setShowModal(!showModal)}>
+              {firstWeapon.data.name}
+            </div>
+            <div className="text-xs">{firstWeapon.data.job}</div>
+            <UltimateTitle id={firstWeapon.data.id} />
           </div>
-          <div className="text-xs">{secondWeapon.data.job}</div>
-          <UltimateTitle id={secondWeapon.data.id} />
+          <div className="p-8 text-2xl font-extrabold">Vs.</div>
+          <div className="h-100 flex w-80 flex-col items-center">
+            <Image
+              src={secondWeapon.data.iconUrl}
+              className="cursor-pointer pb-2 sm:shrink-0 md:shrink-0"
+              width={80}
+              height={80}
+              onClick={() => voteForWeapon(second)}
+              alt="Icon of second Ultimate Weapon"
+            />
+            <div className="font-bold" onClick={() => setShowModal(!showModal)}>
+              {secondWeapon.data.name}
+            </div>
+            <div className="text-xs">{secondWeapon.data.job}</div>
+            <UltimateTitle id={secondWeapon.data.id} />
+          </div>
+        </div>
+        <div className="text-center text-xl">
+          <Link href="/results">Results</Link>
         </div>
       </div>
-      <div className="text-center text-xl">
-        <Link href="/results">Results</Link>
-      </div>
-    </div>
+    </>
   );
 };
 
@@ -126,9 +132,17 @@ const ImageModal = ({ toggleModal }: any) => {
       onClick={() => toggleModal(false)}
       className="modal fixed flex items-center justify-center"
     >
-      <div className="overlay h-screen w-screen bg-black bg-opacity-80"></div>
-      <div className="content absolute top-2/4 text-9xl font-bold text-slate-300">
-        Placeholder Image
+      <div className="overlay h-screen w-screen bg-black bg-opacity-90"></div>
+      <div className="absolute align-middle">
+        <Image
+          src="/weapons/BRD.jpg"
+          width={600}
+          height={719}
+          alt="Screenshot of UCOB BRD weapon."
+        />
+        <div className="content top-2/4 text-center text-xs text-slate-300">
+          Click/Tap anywhere to close
+        </div>
       </div>
     </div>
   );
