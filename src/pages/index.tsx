@@ -13,7 +13,7 @@ const Home: NextPage = () => {
   const [showModal, setShowModal] = useState(false);
 
   const prepareModal = () => {
-    return
+    return;
   };
 
   // TODO: probably bad loading condition
@@ -70,33 +70,41 @@ const Home: NextPage = () => {
           <div className="h-100 flex w-80 flex-col items-center">
             <Image
               src={firstWeapon.data.iconUrl}
-              className="cursor-pointer pb-2 sm:shrink-0 md:shrink-0"
+              className="cursor-pointer pb-2 hover:animate-pulse sm:shrink-0 md:shrink-0"
               width={80}
               height={80}
               onClick={() => voteForWeapon(first)}
               alt="Icon of first Ultimate Weapon"
             />
-            <div className="font-bold" onClick={() => setShowModal(!showModal)}>
-              {firstWeapon.data.name}
-            </div>
+            <div className="font-bold">{firstWeapon.data.name}</div>
             <div className="text-xs">{firstWeapon.data.job}</div>
             <UltimateTitle id={firstWeapon.data.id} />
+            <div
+              className="cursor-pointer"
+              onClick={() => setShowModal(!showModal)}
+            >
+              📷
+            </div>
           </div>
           <div className="p-8 text-2xl font-extrabold">Vs.</div>
           <div className="h-100 flex w-80 flex-col items-center">
             <Image
               src={secondWeapon.data.iconUrl}
-              className="cursor-pointer pb-2 sm:shrink-0 md:shrink-0"
+              className="cursor-pointer pb-2 hover:animate-pulse sm:shrink-0 md:shrink-0"
               width={80}
               height={80}
               onClick={() => voteForWeapon(second)}
               alt="Icon of second Ultimate Weapon"
             />
-            <div className="font-bold" onClick={() => setShowModal(!showModal)}>
-              {secondWeapon.data.name}
-            </div>
+            <div className="font-bold">{secondWeapon.data.name}</div>
             <div className="text-xs">{secondWeapon.data.job}</div>
             <UltimateTitle id={secondWeapon.data.id} />
+            <div
+              className="cursor-pointer"
+              onClick={() => setShowModal(!showModal)}
+            >
+              📷
+            </div>
           </div>
         </div>
         <div className="text-center text-xl">
@@ -132,16 +140,18 @@ const ImageModal = ({ toggleModal }: any) => {
       onClick={() => toggleModal(false)}
       className="modal fixed flex items-center justify-center"
     >
-      <div className="overlay h-screen w-screen bg-black bg-opacity-90"></div>
-      <div className="absolute align-middle">
+      <div className="overlay h-screen w-screen bg-black bg-opacity-50 backdrop-blur"></div>
+      <div className="absolute align-middle transition-opacity">
         <Image
-          src="/weapons/BRD.jpg"
+          className="border shadow-2xl shadow-black"
+          src={`/weapons/${Math.floor(Math.random() * (15 - 0 + 1)) + 0}.jpg`}
           width={600}
           height={719}
           alt="Screenshot of UCOB BRD weapon."
         />
         <div className="content top-2/4 text-center text-xs text-slate-300">
-          Click/Tap anywhere to close
+          <p>Click/Tap anywhere to close</p>
+          <p>Placeholder is displaying a random UCOB weapon</p>
         </div>
       </div>
     </div>
