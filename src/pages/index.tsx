@@ -147,7 +147,8 @@ const ImageModal = ({ toggleModal }: any) => {
           src={`/weapons/${Math.floor(Math.random() * (15 - 0 + 1)) + 0}.jpg`}
           width={600}
           height={719}
-          alt="Screenshot of UCOB BRD weapon."
+          placeholder="blur"
+          alt="Screenshot of UCOB weapon."
         />
         <div className="content top-2/4 text-center text-xs text-slate-300">
           <p>Click/Tap anywhere to close</p>
